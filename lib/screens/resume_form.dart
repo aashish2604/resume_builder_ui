@@ -12,7 +12,8 @@ import 'package:resume_builder_ui/widgets/resume_form/personal_details.dart';
 import 'package:rich_text_controller/rich_text_controller.dart';
 
 class ResumeForm extends StatefulWidget {
-  const ResumeForm({super.key});
+  final String templateId;
+  const ResumeForm({super.key, required this.templateId});
 
   @override
   State<ResumeForm> createState() => _ResumeFormState();
@@ -90,7 +91,8 @@ class _ResumeFormState extends State<ResumeForm> {
                     }),
               onStepContinue: () {
                 if (formKeys[currentStep].currentState!.validate()) {
-                  bool isLastStep = (currentStep == getSteps().length - 1);
+                  bool isLastStep =
+                      (currentStep == getSteps(context).length - 1);
                   if (isLastStep) {
                     final skills = ref.read(skillListStateProvider);
                     final education =
@@ -107,7 +109,7 @@ class _ResumeFormState extends State<ResumeForm> {
                             phoneNumber: phoneController.text,
                             linkedinUrl: linkedInController.text);
                     ResumeModel resumeData = ResumeModel(
-                        templateId: "1",
+                        templateId: widget.templateId,
                         personalInformation: personalInformation,
                         jobTitle: jobProfileController.text,
                         careerObjective: careerObjectiveController.text,
@@ -127,18 +129,19 @@ class _ResumeFormState extends State<ResumeForm> {
                   }
                 }
               },
-              steps: getSteps(),
+              steps: getSteps(context),
             ),
           );
         }));
   }
 
-  List<Step> getSteps() {
+  List<Step> getSteps(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
     return <Step>[
       Step(
         state: currentStep > 0 ? StepState.complete : StepState.indexed,
         isActive: currentStep >= 0,
-        title: const Text("Personal"),
+        title: width > 700 ? const Text("Personal") : const SizedBox.shrink(),
         content: Form(
           key: formKeys[0],
           child: PersonalDetails(
@@ -153,18 +156,20 @@ class _ResumeFormState extends State<ResumeForm> {
       Step(
           state: currentStep > 1 ? StepState.complete : StepState.indexed,
           isActive: currentStep >= 1,
-          title: const Text("Education"),
+          title:
+              width > 700 ? const Text("Education") : const SizedBox.shrink(),
           content: Form(key: formKeys[1], child: const EducationDetails())),
       Step(
         state: currentStep > 2 ? StepState.complete : StepState.indexed,
         isActive: currentStep >= 2,
-        title: const Text("Experience"),
+        title: width > 700 ? const Text("Experience") : const SizedBox.shrink(),
         content: Form(key: formKeys[2], child: const ExperienceDetails()),
       ),
       Step(
         state: currentStep > 3 ? StepState.complete : StepState.indexed,
         isActive: currentStep >= 3,
-        title: const Text("Achievements"),
+        title:
+            width > 700 ? const Text("Achievements") : const SizedBox.shrink(),
         content: Form(
           key: formKeys[3],
           child: const AchievementDetails(),
@@ -173,7 +178,7 @@ class _ResumeFormState extends State<ResumeForm> {
       Step(
           state: currentStep > 4 ? StepState.complete : StepState.indexed,
           isActive: currentStep >= 4,
-          title: const Text("Others"),
+          title: width > 600 ? const Text("Others") : const SizedBox.shrink(),
           content: Form(
               key: formKeys[4],
               child: OtherDetails(

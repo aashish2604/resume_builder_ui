@@ -49,7 +49,9 @@ class HomeScreen extends StatelessWidget {
                   child: TextButton(
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const ResumeForm()));
+                            builder: (context) => ResumeForm(
+                                  templateId: selectedTemplated.toString(),
+                                )));
                       },
                       child: Text("Continue")))
             ],
