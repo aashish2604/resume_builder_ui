@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:resume_builder_ui/constants/app_constants.dart';
@@ -10,6 +12,7 @@ import 'package:resume_builder_ui/widgets/resume_form/experience_details.dart';
 import 'package:resume_builder_ui/widgets/resume_form/other_details.dart';
 import 'package:resume_builder_ui/widgets/resume_form/personal_details.dart';
 import 'package:rich_text_controller/rich_text_controller.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class ResumeForm extends StatefulWidget {
   final String templateId;
@@ -79,7 +82,10 @@ class _ResumeFormState extends State<ResumeForm> {
         ),
         body: Consumer(builder: (context, ref, child) {
           return Padding(
-            padding: EdgeInsets.symmetric(horizontal: width * 0.1),
+            padding: EdgeInsets.symmetric(
+                horizontal: kIsWeb
+                    ? width * 0.1
+                    : (Platform.isAndroid ? 0 : width * 0.1)),
             child: Stepper(
               controlsBuilder: (BuildContext ctx, ControlsDetails dtl) {
                 return Padding(

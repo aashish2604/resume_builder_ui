@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:resume_builder_ui/constants/app_constants.dart';
 import 'package:resume_builder_ui/widgets/shared/alert_dialogbox.dart';
 import 'package:rich_text_controller/rich_text_controller.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class CustomTextFormField extends StatelessWidget {
   final RichTextController controller;
@@ -94,9 +97,19 @@ class CustomTextFormField extends StatelessWidget {
                             ],
                             context: context,
                             constraints: BoxConstraints(
-                                maxWidth: width * 0.4,
-                                minWidth: width * 0.3,
-                                maxHeight: 300));
+                                maxWidth: kIsWeb
+                                    ? width * 0.4
+                                    : (Platform.isAndroid
+                                        ? width - 10
+                                        : width * 0.4),
+                                minWidth: kIsWeb
+                                    ? width * 0.3
+                                    : (Platform.isAndroid
+                                        ? width - 15
+                                        : width * 0.3),
+                                maxHeight: kIsWeb
+                                    ? 300
+                                    : (Platform.isAndroid ? 350 : 300)));
                       },
                       icon: Icon(Icons.link))
               : null),

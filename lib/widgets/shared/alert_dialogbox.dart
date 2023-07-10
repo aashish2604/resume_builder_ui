@@ -11,7 +11,10 @@ Future<void> showUtilityDialogBox(
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text(title),
+          title: Text(
+            title,
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           content: ConstrainedBox(
               constraints:
                   constraints ?? BoxConstraints(maxHeight: height * 0.2),

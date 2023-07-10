@@ -37,160 +37,163 @@ class _EducationDetailsState extends State<EducationDetails> {
     return Consumer(builder: (context, ref, child) {
       final educationDetailsModelList =
           ref.watch(educationDetailsListStateProvider);
-      return Column(
-        children: [
-          SizedBox(
-            width: isMobile ? width - 40 : 700,
-            child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: educationDetailsModelList.length,
-                itemBuilder: (context, index) {
-                  RichTextController schoolNameController =
-                      getRichTextController(
-                          ANCHOR_TAG_REGEX,
-                          const TextStyle(
-                              color: Colors.blue,
-                              decoration: TextDecoration.underline));
-                  RichTextController passingYearController =
-                      getRichTextController(
-                          ANCHOR_TAG_REGEX,
-                          const TextStyle(
-                              color: Colors.blue,
-                              decoration: TextDecoration.underline));
-                  RichTextController descriptionController =
-                      getRichTextController(
-                          ANCHOR_TAG_REGEX,
-                          const TextStyle(
-                              color: Colors.blue,
-                              decoration: TextDecoration.underline));
-                  schoolNameController.text =
-                      educationDetailsModelList[index].schoolName!;
-                  passingYearController.text =
-                      educationDetailsModelList[index].passingYear!;
-                  descriptionController.text =
-                      educationDetailsModelList[index].description!;
-                  return Padding(
-                    padding: const EdgeInsets.only(top: 20.0),
-                    child: WrappingContainer(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: isMobile ? 20.0 : width * 0.03,
-                          vertical: 30.0),
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Center(
-                              child: Text(
-                                'Education details ${index + 1}',
-                                style: formTitleTextStyle,
+      return SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(
+              width: isMobile ? width - 40 : 700,
+              child: ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: educationDetailsModelList.length,
+                  itemBuilder: (context, index) {
+                    RichTextController schoolNameController =
+                        getRichTextController(
+                            ANCHOR_TAG_REGEX,
+                            const TextStyle(
+                                color: Colors.blue,
+                                decoration: TextDecoration.underline));
+                    RichTextController passingYearController =
+                        getRichTextController(
+                            ANCHOR_TAG_REGEX,
+                            const TextStyle(
+                                color: Colors.blue,
+                                decoration: TextDecoration.underline));
+                    RichTextController descriptionController =
+                        getRichTextController(
+                            ANCHOR_TAG_REGEX,
+                            const TextStyle(
+                                color: Colors.blue,
+                                decoration: TextDecoration.underline));
+                    schoolNameController.text =
+                        educationDetailsModelList[index].schoolName!;
+                    passingYearController.text =
+                        educationDetailsModelList[index].passingYear!;
+                    descriptionController.text =
+                        educationDetailsModelList[index].description!;
+                    return Padding(
+                      padding: const EdgeInsets.only(top: 20.0),
+                      child: WrappingContainer(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: isMobile ? 20.0 : width * 0.03,
+                            vertical: 30.0),
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Center(
+                                child: Text(
+                                  'Education details ${index + 1}',
+                                  style: formTitleTextStyle,
+                                ),
                               ),
-                            ),
-                            Text(
-                              "School Name",
-                              style: formFieldTextStyle,
-                            ),
-                            const SizedBox(
-                              height: 8.0,
-                            ),
-                            CustomTextFormField(
-                              controller: schoolNameController,
-                              labelText: "School Name",
-                              onChanged: (val) {
-                                ref
-                                    .read(educationDetailsListStateProvider)[
-                                        index]
-                                    .schoolName = val;
-                              },
-                            ),
-                            const SizedBox(
-                              height: 20.0,
-                            ),
-                            Text(
-                              "Passing Year",
-                              style: formFieldTextStyle,
-                            ),
-                            const SizedBox(
-                              height: 8.0,
-                            ),
-                            CustomTextFormField(
-                                controller: passingYearController,
-                                labelText: "Passing year",
+                              Text(
+                                "School Name",
+                                style: formFieldTextStyle,
+                              ),
+                              const SizedBox(
+                                height: 8.0,
+                              ),
+                              CustomTextFormField(
+                                controller: schoolNameController,
+                                labelText: "School Name",
                                 onChanged: (val) {
                                   ref
                                       .read(educationDetailsListStateProvider)[
                                           index]
-                                      .passingYear = val;
-                                }),
-                            const SizedBox(
-                              height: 20.0,
-                            ),
-                            Text(
-                              "Description",
-                              style: formFieldTextStyle,
-                            ),
-                            const SizedBox(
-                              height: 8.0,
-                            ),
-                            CustomTextFormField(
-                                controller: descriptionController,
-                                labelText: "Description",
-                                onChanged: (val) {
-                                  ref
-                                      .read(educationDetailsListStateProvider)[
-                                          index]
-                                      .description = val;
-                                }),
-                            const SizedBox(
-                              height: 20.0,
-                            ),
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: IconButton(
-                                  onPressed: () {
-                                    if (ref
+                                      .schoolName = val;
+                                },
+                              ),
+                              const SizedBox(
+                                height: 20.0,
+                              ),
+                              Text(
+                                "Passing Year",
+                                style: formFieldTextStyle,
+                              ),
+                              const SizedBox(
+                                height: 8.0,
+                              ),
+                              CustomTextFormField(
+                                  controller: passingYearController,
+                                  labelText: "Passing year",
+                                  onChanged: (val) {
+                                    ref
+                                        .read(educationDetailsListStateProvider)[
+                                            index]
+                                        .passingYear = val;
+                                  }),
+                              const SizedBox(
+                                height: 20.0,
+                              ),
+                              Text(
+                                "Description",
+                                style: formFieldTextStyle,
+                              ),
+                              const SizedBox(
+                                height: 8.0,
+                              ),
+                              CustomTextFormField(
+                                  controller: descriptionController,
+                                  labelText: "Description",
+                                  onChanged: (val) {
+                                    ref
+                                        .read(educationDetailsListStateProvider)[
+                                            index]
+                                        .description = val;
+                                  }),
+                              const SizedBox(
+                                height: 20.0,
+                              ),
+                              Align(
+                                alignment: Alignment.centerRight,
+                                child: IconButton(
+                                    onPressed: () {
+                                      if (ref
+                                              .read(
+                                                  educationDetailsListStateProvider)
+                                              .length >
+                                          1) {
+                                        ref
                                             .read(
                                                 educationDetailsListStateProvider)
-                                            .length >
-                                        1) {
-                                      ref
-                                          .read(
-                                              educationDetailsListStateProvider)
-                                          .removeAt(index);
-                                      setState(() {});
-                                    }
-                                  },
-                                  icon: const Icon(
-                                    Icons.delete_outline,
-                                    color: kSadRed,
-                                  )),
-                            ),
-                          ]),
-                    ),
-                  );
-                }),
-          ),
-          const SizedBox(
-            height: 20.0,
-          ),
-          Align(
-            alignment: Alignment.center,
-            child: ElevatedButton.icon(
-              label: const Text('Add more'),
-              onPressed: () {
-                ref.read(educationDetailsListStateProvider).add(
-                    EducationDetailsModel(
-                        schoolName: "", passingYear: "", description: ""));
-                setState(() {});
-              },
-              icon: const Icon(
-                Icons.add,
-                color: Colors.white,
+                                            .removeAt(index);
+                                        setState(() {});
+                                      }
+                                    },
+                                    icon: const Icon(
+                                      Icons.delete_outline,
+                                      color: kSadRed,
+                                    )),
+                              ),
+                            ]),
+                      ),
+                    );
+                  }),
+            ),
+            const SizedBox(
+              height: 20.0,
+            ),
+            Align(
+              alignment: Alignment.center,
+              child: ElevatedButton.icon(
+                label: const Text('Add more'),
+                onPressed: () {
+                  ref.read(educationDetailsListStateProvider).add(
+                      EducationDetailsModel(
+                          schoolName: "", passingYear: "", description: ""));
+                  setState(() {});
+                },
+                icon: const Icon(
+                  Icons.add,
+                  color: Colors.white,
+                ),
               ),
             ),
-          ),
-          const SizedBox(
-            height: 40.0,
-          )
-        ],
+            const SizedBox(
+              height: 40.0,
+            )
+          ],
+        ),
       );
     });
   }

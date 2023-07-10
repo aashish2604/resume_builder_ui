@@ -37,163 +37,168 @@ class _ExperienceDetailsState extends State<ExperienceDetails> {
     return Consumer(builder: (context, ref, child) {
       final experienceDetailsModelList =
           ref.watch(experienceDetailsListStateProvider);
-      return Column(
-        children: [
-          SizedBox(
-            width: isMobile ? width - 40 : 700,
-            child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: experienceDetailsModelList.length,
-                itemBuilder: (context, index) {
-                  RichTextController companyNameController =
-                      getRichTextController(
-                          ANCHOR_TAG_REGEX,
-                          const TextStyle(
-                              color: Colors.blue,
-                              decoration: TextDecoration.underline));
-                  RichTextController passingYearController =
-                      getRichTextController(
-                          ANCHOR_TAG_REGEX,
-                          const TextStyle(
-                              color: Colors.blue,
-                              decoration: TextDecoration.underline));
-                  RichTextController responsibilityController =
-                      getRichTextController(
-                          ANCHOR_TAG_REGEX,
-                          const TextStyle(
-                              color: Colors.blue,
-                              decoration: TextDecoration.underline));
-                  companyNameController.text =
-                      experienceDetailsModelList[index].companyName!;
-                  passingYearController.text =
-                      experienceDetailsModelList[index].passingYear!;
-                  responsibilityController.text =
-                      experienceDetailsModelList[index].responsibility!;
-                  return Padding(
-                    padding: const EdgeInsets.only(top: 20.0),
-                    child: SizedBox(
-                      width: isMobile ? width : width * 0.6,
-                      child: WrappingContainer(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: isMobile ? 20.0 : width * 0.03,
-                            vertical: 30.0),
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Center(
-                                child: Text(
-                                  'Experience details ${index + 1}',
-                                  style: formTitleTextStyle,
+      return SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(
+              width: isMobile ? width - 40 : 700,
+              child: ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: experienceDetailsModelList.length,
+                  itemBuilder: (context, index) {
+                    RichTextController companyNameController =
+                        getRichTextController(
+                            ANCHOR_TAG_REGEX,
+                            const TextStyle(
+                                color: Colors.blue,
+                                decoration: TextDecoration.underline));
+                    RichTextController passingYearController =
+                        getRichTextController(
+                            ANCHOR_TAG_REGEX,
+                            const TextStyle(
+                                color: Colors.blue,
+                                decoration: TextDecoration.underline));
+                    RichTextController responsibilityController =
+                        getRichTextController(
+                            ANCHOR_TAG_REGEX,
+                            const TextStyle(
+                                color: Colors.blue,
+                                decoration: TextDecoration.underline));
+                    companyNameController.text =
+                        experienceDetailsModelList[index].companyName!;
+                    passingYearController.text =
+                        experienceDetailsModelList[index].passingYear!;
+                    responsibilityController.text =
+                        experienceDetailsModelList[index].responsibility!;
+                    return Padding(
+                      padding: const EdgeInsets.only(top: 20.0),
+                      child: SizedBox(
+                        width: isMobile ? width : width * 0.6,
+                        child: WrappingContainer(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: isMobile ? 20.0 : width * 0.03,
+                              vertical: 30.0),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Center(
+                                  child: Text(
+                                    'Experience details ${index + 1}',
+                                    style: formTitleTextStyle,
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                "Company Name",
-                                style: formFieldTextStyle,
-                              ),
-                              const SizedBox(
-                                height: 8.0,
-                              ),
-                              CustomTextFormField(
-                                controller: companyNameController,
-                                labelText: "Company Name",
-                                onChanged: (val) {
-                                  ref
-                                      .read(experienceDetailsListStateProvider)[
-                                          index]
-                                      .companyName = val;
-                                },
-                              ),
-                              const SizedBox(
-                                height: 20.0,
-                              ),
-                              Text(
-                                "Passing Year",
-                                style: formFieldTextStyle,
-                              ),
-                              const SizedBox(
-                                height: 8.0,
-                              ),
-                              CustomTextFormField(
-                                  controller: passingYearController,
-                                  labelText: "Passing year",
+                                Text(
+                                  "Company Name",
+                                  style: formFieldTextStyle,
+                                ),
+                                const SizedBox(
+                                  height: 8.0,
+                                ),
+                                CustomTextFormField(
+                                  controller: companyNameController,
+                                  labelText: "Company Name",
                                   onChanged: (val) {
                                     ref
                                         .read(experienceDetailsListStateProvider)[
                                             index]
-                                        .passingYear = val;
-                                  }),
-                              const SizedBox(
-                                height: 20.0,
-                              ),
-                              Text(
-                                "Responsibility",
-                                style: formFieldTextStyle,
-                              ),
-                              const SizedBox(
-                                height: 8.0,
-                              ),
-                              CustomTextFormField(
-                                  controller: responsibilityController,
-                                  labelText: "Responsibility",
-                                  onChanged: (val) {
-                                    ref
-                                        .read(experienceDetailsListStateProvider)[
-                                            index]
-                                        .responsibility = val;
-                                  }),
-                              const SizedBox(
-                                height: 20.0,
-                              ),
-                              Align(
-                                alignment: Alignment.centerRight,
-                                child: IconButton(
-                                    onPressed: () {
-                                      if (ref
+                                        .companyName = val;
+                                  },
+                                ),
+                                const SizedBox(
+                                  height: 20.0,
+                                ),
+                                Text(
+                                  "Passing Year",
+                                  style: formFieldTextStyle,
+                                ),
+                                const SizedBox(
+                                  height: 8.0,
+                                ),
+                                CustomTextFormField(
+                                    controller: passingYearController,
+                                    labelText: "Passing year",
+                                    onChanged: (val) {
+                                      ref
+                                          .read(experienceDetailsListStateProvider)[
+                                              index]
+                                          .passingYear = val;
+                                    }),
+                                const SizedBox(
+                                  height: 20.0,
+                                ),
+                                Text(
+                                  "Responsibility",
+                                  style: formFieldTextStyle,
+                                ),
+                                const SizedBox(
+                                  height: 8.0,
+                                ),
+                                CustomTextFormField(
+                                    controller: responsibilityController,
+                                    labelText: "Responsibility",
+                                    onChanged: (val) {
+                                      ref
+                                          .read(experienceDetailsListStateProvider)[
+                                              index]
+                                          .responsibility = val;
+                                    }),
+                                const SizedBox(
+                                  height: 20.0,
+                                ),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: IconButton(
+                                      onPressed: () {
+                                        if (ref
+                                                .read(
+                                                    experienceDetailsListStateProvider)
+                                                .length >
+                                            1) {
+                                          ref
                                               .read(
                                                   experienceDetailsListStateProvider)
-                                              .length >
-                                          1) {
-                                        ref
-                                            .read(
-                                                experienceDetailsListStateProvider)
-                                            .removeAt(index);
-                                        setState(() {});
-                                      }
-                                    },
-                                    icon: const Icon(
-                                      Icons.delete_outline,
-                                      color: kSadRed,
-                                    )),
-                              ),
-                            ]),
+                                              .removeAt(index);
+                                          setState(() {});
+                                        }
+                                      },
+                                      icon: const Icon(
+                                        Icons.delete_outline,
+                                        color: kSadRed,
+                                      )),
+                                ),
+                              ]),
+                        ),
                       ),
-                    ),
-                  );
-                }),
-          ),
-          const SizedBox(
-            height: 20.0,
-          ),
-          Align(
-            alignment: Alignment.center,
-            child: ElevatedButton.icon(
-              label: const Text('Add more'),
-              onPressed: () {
-                ref.read(experienceDetailsListStateProvider).add(
-                    ExperienceDetailsModel(
-                        companyName: "", passingYear: "", responsibility: ""));
-                setState(() {});
-              },
-              icon: const Icon(
-                Icons.add,
-                color: Colors.white,
+                    );
+                  }),
+            ),
+            const SizedBox(
+              height: 20.0,
+            ),
+            Align(
+              alignment: Alignment.center,
+              child: ElevatedButton.icon(
+                label: const Text('Add more'),
+                onPressed: () {
+                  ref.read(experienceDetailsListStateProvider).add(
+                      ExperienceDetailsModel(
+                          companyName: "",
+                          passingYear: "",
+                          responsibility: ""));
+                  setState(() {});
+                },
+                icon: const Icon(
+                  Icons.add,
+                  color: Colors.white,
+                ),
               ),
             ),
-          ),
-          const SizedBox(
-            height: 40.0,
-          )
-        ],
+            const SizedBox(
+              height: 40.0,
+            )
+          ],
+        ),
       );
     });
   }
