@@ -109,20 +109,49 @@ class _OtherDetailsState extends State<OtherDetails> {
               padding: EdgeInsets.symmetric(
                   horizontal: width * 0.05, vertical: 30.0),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Center(
+                    child: Text(
+                      'Other Details',
+                      style: formTitleTextStyle,
+                    ),
+                  ),
                   Text(
-                    'Other Details',
-                    style: titleTextStyle,
+                    "Job Profile",
+                    style: formFieldTextStyle,
+                  ),
+                  const SizedBox(
+                    height: 8.0,
                   ),
                   CustomTextFormField(
                     labelText: "Job Profile",
                     controller: widget.jobController,
                   ),
+                  const SizedBox(
+                    height: 20.0,
+                  ),
+                  Text(
+                    "Career Objective",
+                    style: formFieldTextStyle,
+                  ),
+                  const SizedBox(
+                    height: 8.0,
+                  ),
                   CustomTextFormField(
                     labelText: "Career Objective",
                     controller: widget.carrerObjectiveController,
                   ),
-                  const Text("Skills"),
+                  const SizedBox(
+                    height: 20.0,
+                  ),
+                  Text(
+                    "Skills",
+                    style: formFieldTextStyle,
+                  ),
+                  const SizedBox(
+                    height: 8.0,
+                  ),
                   ListView.builder(
                       shrinkWrap: true,
                       itemCount: skillsList.length,
@@ -134,40 +163,43 @@ class _OtherDetailsState extends State<OtherDetails> {
                                     color: Colors.blue,
                                     decoration: TextDecoration.underline));
                         skillController.text = skillsList[index]!;
-                        return CustomTextFormField(
-                          controller: skillController,
-                          labelText: 'Skill ${index + 1}',
-                          onChanged: (val) {
-                            ref.read(skillListStateProvider)[index] = val;
-                          },
-                          suffix: SizedBox(
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                skillSuffix(skillController, context),
-                                IconButton(
-                                    onPressed: () {
-                                      if (ref
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: CustomTextFormField(
+                            controller: skillController,
+                            labelText: 'Skill ${index + 1}',
+                            onChanged: (val) {
+                              ref.read(skillListStateProvider)[index] = val;
+                            },
+                            suffix: SizedBox(
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  skillSuffix(skillController, context),
+                                  IconButton(
+                                      onPressed: () {
+                                        if (ref
+                                                .read(skillListStateProvider)
+                                                .length >
+                                            1) {
+                                          ref
                                               .read(skillListStateProvider)
-                                              .length >
-                                          1) {
-                                        ref
-                                            .read(skillListStateProvider)
-                                            .removeAt(index);
-                                        setState(() {});
-                                      }
-                                    },
-                                    icon: const Icon(
-                                      Icons.delete_outline,
-                                      color: kSadRed,
-                                    )),
-                              ],
+                                              .removeAt(index);
+                                          setState(() {});
+                                        }
+                                      },
+                                      icon: const Icon(
+                                        Icons.delete_outline,
+                                        color: kSadRed,
+                                      )),
+                                ],
+                              ),
                             ),
                           ),
                         );
                       }),
                   const SizedBox(
-                    height: 16.0,
+                    height: 8.0,
                   ),
                   Align(
                     alignment: Alignment.centerRight,

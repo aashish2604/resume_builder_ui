@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:resume_builder_ui/constants/app_constants.dart';
 import 'package:resume_builder_ui/widgets/shared/alert_dialogbox.dart';
 import 'package:rich_text_controller/rich_text_controller.dart';
 
@@ -26,7 +27,7 @@ class CustomTextFormField extends StatelessWidget {
       validator: validator ??
           (val) => val!.isEmpty ? 'This is a required field' : null,
       decoration: InputDecoration(
-          labelText: labelText,
+          hintText: labelText,
           suffix: showSuffix
               ? suffix ??
                   IconButton(
@@ -40,21 +41,36 @@ class CustomTextFormField extends StatelessWidget {
                             content: Form(
                               key: dialogBoxFormKey,
                               child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text('Enter url'),
+                                  const Text('Enter url'),
                                   TextFormField(
-                                    validator: (val) => val!.isEmpty
-                                        ? "This is a required field"
-                                        : null,
+                                    validator: (val) {
+                                      if (val!.isEmpty) {
+                                        return "This is a required field";
+                                      }
+                                      if (!URL_REGEX.hasMatch(val)) {
+                                        return "Enter valid url of the form https://";
+                                      }
+                                      return null;
+                                    },
                                     controller: urlController,
                                   ),
-                                  Text("Enter Anchor text"),
+                                  const SizedBox(
+                                    height: 8.0,
+                                  ),
+                                  const Text("Enter Anchor text"),
                                   TextFormField(
                                     validator: (val) => val!.isEmpty
                                         ? "This is a required field"
                                         : null,
                                     controller: tagTextController,
                                   ),
+                                  const SizedBox(
+                                    height: 20.0,
+                                  ),
+                                  const Text(
+                                      "If you enter https://google.com in url and google in anchor text then the field will show it as https://google.com[google] but your generated resume will have the anchor text in desired form")
                                 ],
                               ),
                             ),
@@ -80,7 +96,7 @@ class CustomTextFormField extends StatelessWidget {
                             constraints: BoxConstraints(
                                 maxWidth: width * 0.4,
                                 minWidth: width * 0.3,
-                                maxHeight: 200));
+                                maxHeight: 300));
                       },
                       icon: Icon(Icons.link))
               : null),

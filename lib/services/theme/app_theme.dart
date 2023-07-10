@@ -5,9 +5,27 @@ import 'package:resume_builder_ui/services/theme/custom_colors.dart';
 final titleTextStyle =
     GoogleFonts.gruppo(fontSize: 40.0, fontWeight: FontWeight.w800);
 
+final formTitleTextStyle =
+    GoogleFonts.oswald(fontSize: 40, fontWeight: FontWeight.w600);
+
+final formFieldTextStyle =
+    GoogleFonts.oswald(fontSize: 20, fontWeight: FontWeight.w400);
+
 class AppTheme {
   ThemeData lightTheme() {
     return ThemeData(
+      inputDecorationTheme: InputDecorationTheme(
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(20))),
+      textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+        foregroundColor: Colors.white,
+        elevation: 5,
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+        backgroundColor: Colors.black,
+      )),
       scaffoldBackgroundColor: kCatsKillWhiteColor,
       colorScheme: const ColorScheme(
           brightness: Brightness.light,

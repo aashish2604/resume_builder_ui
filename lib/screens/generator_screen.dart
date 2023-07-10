@@ -43,7 +43,13 @@ class GeneratorScreen extends StatelessWidget {
               );
             } else if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
-                child: CupertinoActivityIndicator(),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    CupertinoActivityIndicator(),
+                    const Text("Generating resume")
+                  ],
+                ),
               );
             } else {
               return const Center(

@@ -40,8 +40,7 @@ class _ResumeFormState extends State<ResumeForm> {
   @override
   void initState() {
     linkedInController = getRichTextController(
-        RegExp(
-            r'^(http(s)?:\/\/)?([\w]+\.)?linkedin\.com\/(pub|in|profile)\/([-a-zA-Z0-9]+)\/?$'),
+        LINKEDIN_PROFILE_REGEX,
         const TextStyle(
             color: Colors.blue, decoration: TextDecoration.underline));
     jobProfileController = getRichTextController(
@@ -82,6 +81,27 @@ class _ResumeFormState extends State<ResumeForm> {
           return Padding(
             padding: EdgeInsets.symmetric(horizontal: width * 0.1),
             child: Stepper(
+              controlsBuilder: (BuildContext ctx, ControlsDetails dtl) {
+                return Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      TextButton(
+                        onPressed: dtl.onStepCancel,
+                        child: const Text('Previous'),
+                      ),
+                      const SizedBox(
+                        width: 8.0,
+                      ),
+                      TextButton(
+                        onPressed: dtl.onStepContinue,
+                        child: const Text('Next'),
+                      ),
+                    ],
+                  ),
+                );
+              },
               type: StepperType.horizontal,
               currentStep: currentStep,
               onStepCancel: () => currentStep == 0
