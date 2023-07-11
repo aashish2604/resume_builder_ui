@@ -90,6 +90,7 @@ class CustomTextFormField extends StatelessWidget {
                                       String finalTextValue =
                                           "$controllerValue${urlController.text}[${tagTextController.text}]";
                                       controller.text = finalTextValue;
+                                      onChanged?.call(finalTextValue);
                                       Navigator.pop(context);
                                     }
                                   },
