@@ -30,8 +30,11 @@ class ResumeGeneratorRespository {
           final Uint8List pdfData = response.data as Uint8List;
           final blob = html.Blob([pdfData], 'application/pdf');
           var url = html.Url.createObjectUrlFromBlob(blob);
-          await launchUrl(Uri.parse(url));
-          return "Pdf is successfully opened in a new tab...👍👍";
+
+          html.AnchorElement anchorElement = html.AnchorElement(href: url);
+          anchorElement.download = "$url.pdf";
+          anchorElement.click();
+          return "Pdf is downloaded...👍";
         } else {
           Directory? directory = await getApplicationDocumentsDirectory();
           String fileName =
