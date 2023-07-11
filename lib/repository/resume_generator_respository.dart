@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:open_file/open_file.dart';
+import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:resume_builder_ui/models/resume_model.dart';
 import 'package:flutter/foundation.dart' show Uint8List, kIsWeb;
@@ -14,7 +14,7 @@ class ResumeGeneratorRespository {
   Future<String?> generateResume(ResumeModel resumeModel) async {
     Dio dio = Dio();
     var options = BaseOptions(
-        baseUrl: 'http://localhost:4000',
+        baseUrl: 'https://adoberesumebuilder-production.up.railway.app',
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/pdf',
@@ -45,7 +45,7 @@ class ResumeGeneratorRespository {
             await launchUrl(Uri.parse(filePath));
             return "Pdf is successfully stored in $filePath";
           } else {
-            await OpenFile.open(filePath);
+            await OpenFilex.open(filePath);
             return "Pdf is successfully stored in $filePath";
           }
         }

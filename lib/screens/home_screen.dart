@@ -2,6 +2,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:open_filex/open_filex.dart';
 import 'package:resume_builder_ui/providers/app_state_providers.dart';
 import 'package:resume_builder_ui/screens/resume_form.dart';
 import 'package:resume_builder_ui/services/theme/custom_colors.dart';
